@@ -1,0 +1,101 @@
+/*#play-area {*/
+	/*position: absolute;*/
+	/*top: 50%;*/
+	/*left: 50%;*/
+	/*margin-right: -50%;*/
+	/*transform: translate(-50%, -50%);*/
+/*}*/
+
+/*.border1px {*/
+    /*border-width: 1px;*/
+    /*border-color: black;*/
+    /*border-style: solid;*/
+/*}*/
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?rktnk2');
+  src:  url('fonts/icomoon.eot?rktnk2#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?rktnk2') format('truetype'),
+    url('fonts/icomoon.woff?rktnk2') format('woff'),
+    url('fonts/icomoon.svg?rktnk2#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cross:before {
+  content: "\ea0f";
+}
+.icon-radio-unchecked:before {
+  content: "\ea56";
+}
+
+/*----------------------------*/
+
+section {
+  max-width: 240px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.column {
+  margin: 0px;
+  height: 40px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+section:nth-of-type(5) .column:first-of-type {
+  flex-grow: 2;
+  flex-shrink: 2;
+  flex-basis: 22px;
+}
+
+section:nth-of-type(6) .column:nth-of-type(2) {
+  flex-grow: 4;
+  flex-shrink: 4;
+  flex-basis: 66px;
+}
+
+/* OTHER STYLES */
+  
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  padding: 10px;
+  background: linear-gradient(135deg, #b04, #f80) fixed;
+}
+
+.column {
+  padding: 10px 0;
+  /*background-color: rgba(0, 0, 0, 0.8);*/
+  background-color: black;
+  text-align: center;
+ 
+  /*border: 1px solid transparentize(white, 0.25); */
+  /*background-color: transparentize(white, 0.8);*/
+  /*color: transparentize(white, 0.1);*/
+  border: 1px solid white;
+  background-color: shade(white, 0.2); 
+  color: white;
+}
