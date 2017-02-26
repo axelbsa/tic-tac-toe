@@ -12,20 +12,22 @@ $( document ).ready(function() {
     }
 }); 
 
-function move_player(current_player) {
-    current_player++;
-}
-
 function check_mate() {
-
+    
+    // Create array of stupid html shit
     for (i = 0; i < 9; i++) 
     {
         var value = $('#' + i);
-        console.log("check_mate value:" + value.val() + " " + "i=" + i);
-        if (value.val())
-        {    
-            console.log("THIS NEVER HAPPENDS");
-            x_vals[i] = value.val();
+        if (value.html())
+        {   
+            if (value.html().search(/icon-cross/) != -1)
+            {
+                x_vals[i] = 1;
+            }
+            else
+            {
+                o_vals[i] = 1;
+            }
         }
     }
 
@@ -60,9 +62,6 @@ function render(row) {
 
     // Check for mate
     mate = check_mate();
-    
-    console.log(row_id.html());
-    console.log(row_id.html().length);
     current_player++;
     return;
 }
