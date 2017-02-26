@@ -2,6 +2,8 @@ var current_player = 0;
 var x_vals = new Array(9);
 var o_vals = new Array(9);
 
+var mate = false;
+
 $( document ).ready(function() {
     for (i = 0; i < 9; i++) 
     {
@@ -18,16 +20,19 @@ function check_mate() {
 
     for (i = 0; i < 9; i++) 
     {
-        var value = $('#' + i).val();
-        if (value) 
+        var value = $('#' + i);
+        console.log("check_mate value:" + value.val() + " " + "i=" + i);
+        if (value.val())
         {    
             console.log("THIS NEVER HAPPENDS");
-            x_vals[i] = value;
+            x_vals[i] = value.val();
         }
     }
 
     console.log(x_vals);
     console.log(o_vals);
+
+    return false;
 }
 
 function render(row) {
@@ -35,10 +40,9 @@ function render(row) {
     var circle = '<span class="icon-radio-unchecked"></span>';
 
     var row_id = $('#' + row);
+    //console.log(row_id.html());
 
-    console.log("Habbala habbla");
-
-    if (row_id.val()) 
+    if (row_id.html().length > 0 || mate === true)
     {
         return;
     }
@@ -46,7 +50,6 @@ function render(row) {
     if (~current_player%2)
     {
         // X turn
-        console.log(current_player);
         row_id.append(cross);
     }
     else
@@ -56,9 +59,10 @@ function render(row) {
     }
 
     // Check for mate
-    check_mate();
+    mate = check_mate();
     
-    console.log(row_id.val());
+    console.log(row_id.html());
+    console.log(row_id.html().length);
     current_player++;
     return;
 }
