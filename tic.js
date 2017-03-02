@@ -62,13 +62,16 @@ function check_mate() {
         }
     }
 
+    console.log(x_vals);
+    console.log(o_vals);
+
     for (i = 0; i < 9; i++)
     {
         var file = i / 3;
         var rank = i % 3;
 
         // Check all rows
-        for (j = file; j < j + 3; j++ )
+        for (j = file; j < file + 3; j++ )
         {
         
         }
@@ -106,8 +109,6 @@ function check_mate() {
     }
     */
 
-    console.log(x_vals);
-    console.log(o_vals);
 
     return false;
 }
