@@ -4,6 +4,22 @@ var o_vals = new Array(9);
 
 var mate = false;
 
+mate_index = [
+    /* Rows */
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+
+    /* Files */
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+
+    /* Diagonal */
+    [0, 4, 8],
+    [2, 4, 6]
+];
+
 $( document ).ready(function() {
     for (i = 0; i < 9; i++) 
     {
@@ -13,6 +29,21 @@ $( document ).ready(function() {
 }); 
 
 function check_mate() {
+
+    for (let i in mate_index)
+    {
+        let local_mat = true;
+        for (let k in i)
+        {
+            if (x_vals[k] == 0)
+            {
+                local_mat = false;
+            }
+        }
+        console.log(mate_index[i]);
+    }
+
+    return false;
     
     // Create array of stupid html shit
     for (i = 0; i < 9; i++) 
@@ -104,37 +135,7 @@ $(".box").click(function() {
     }
 
     // Check for mate
-    // mate = check_mate();
-    current_player++;
-
-    console.log(this.children);
-
-    return false;
-})
-
-function render(row) {
-
-    var row_id = $('#' + row);
-    //console.log(row_id.html());
-
-    if (row_id.html().length > 0 || mate === true)
-    {
-        return;
-    }
-
-    if (~current_player%2)
-    {
-        // X turn
-        row_id.append(cross);
-    }
-    else
-    {
-        // O turn
-        row_id.append(circle);
-    }
-
-    // Check for mate
     mate = check_mate();
     current_player++;
-    return;
-}
+    console.log(this.children);
+})
