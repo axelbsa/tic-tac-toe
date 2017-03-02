@@ -30,19 +30,6 @@ $( document ).ready(function() {
 
 function check_mate() {
 
-    for (let i in mate_index)
-    {
-        let local_mat = true;
-        for (let k in i)
-        {
-            if (x_vals[k] == 0)
-            {
-                local_mat = false;
-            }
-        }
-        console.log(mate_index[i]);
-    }
-
     return false;
     
     // Create array of stupid html shit
@@ -65,18 +52,31 @@ function check_mate() {
     console.log(x_vals);
     console.log(o_vals);
 
-    for (i = 0; i < 9; i++)
+    for (let i in mate_index)
     {
-        var file = i / 3;
-        var rank = i % 3;
-
-        // Check all rows
-        for (j = file; j < file + 3; j++ )
+        let local_mat = true;
+        for (let k in i)
         {
-        
+            if (x_vals[k] == 0)
+            {
+                local_mat = false;
+            }
         }
-
+        console.log(mate_index[i]);
     }
+
+    //for (i = 0; i < 9; i++)
+    //{
+        //var file = i / 3;
+        //var rank = i % 3;
+
+        //// Check all rows
+        //for (j = file; j < file + 3; j++ )
+        //{
+        
+        //}
+
+    //}
     
     // Very naive!!
     /*
