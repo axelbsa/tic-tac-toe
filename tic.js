@@ -29,13 +29,10 @@ $( document ).ready(function() {
 }); 
 
 function check_mate() {
-
-    return false;
-    
     // Create array of stupid html shit
-    for (i = 0; i < 9; i++) 
+    for (let i = 0; i < 9; i++) 
     {
-        var value = $('#' + i);
+        let value = $('#' + i);
         if (value.html())
         {   
             if (value.html().search(/icon-cross/) != -1)
@@ -54,61 +51,33 @@ function check_mate() {
 
     for (let i in mate_index)
     {
-        let local_mat = true;
-        for (let k in i)
+        let x_win = true;
+        let o_win = true;
+
+        for (let k in mate_index[i])
         {
-            if (x_vals[k] == 0)
+            let row_value = mate_index[i][k];
+            if (x_vals[row_value] == 0)
             {
-                local_mat = false;
+                x_win = false;
             }
         }
-        console.log(mate_index[i]);
+
+        for (let k in mate_index[i])
+        {
+            let row_value = mate_index[i][k];
+            if (o_vals[row_value] == 0)
+            {
+                o_win = false;
+            }
+        }
+
+        if (x_win === true || o_win === true)
+        {
+            return true;
+        }
+
     }
-
-    //for (i = 0; i < 9; i++)
-    //{
-        //var file = i / 3;
-        //var rank = i % 3;
-
-        //// Check all rows
-        //for (j = file; j < file + 3; j++ )
-        //{
-        
-        //}
-
-    //}
-    
-    // Very naive!!
-    /*
-    for (i = 0; i < 9; i++)
-    {
-
-        if (i === 0)
-        {
-            var 0_pot_mate = true;
-            for (i = 0; i < 3; i++)
-            {
-                if (i !== 0)
-                {
-                    0_pot_mate = false;
-                }
-            }
-        }
-        else if (i === 1)
-        {
-            for (i = 0; i < 9; i++)
-            {
-            }
-        }
-        else if (i === 2)
-        {
-            for (i = 0; i < 9; i++)
-            {
-            }
-        }
-    }
-    */
-
 
     return false;
 }
@@ -138,5 +107,4 @@ $(".box").click(function() {
     // Check for mate
     mate = check_mate();
     current_player++;
-    console.log(this.children);
-})
+});
