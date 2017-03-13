@@ -44,6 +44,7 @@ class Node {
 }
 
 
+
 // int alphabeta(Node node, int depth, int alpha, int beta, bool maximizing_player)
 function alphabeta(node, depth, alpha, beta, maximizing_player)
 {
@@ -212,4 +213,8 @@ $(".box").click(function() {
     mate = get_board().check_mate;
     move_generator();
     current_player++;
+
+    // Test Node init
+    var fd = new Node(1);
+    console.log(fd);
 });
