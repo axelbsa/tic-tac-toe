@@ -1,5 +1,6 @@
 var current_player = 0;
 var mate = false;
+var maxsize = 100000
 var choices = 5;
 
 mate_index = [
@@ -36,7 +37,7 @@ class Node {
         for (let i = 0; i < choices; i++) {
 
             // For now, assign a random val if d = 0 otherwise -10000 a lot
-            var val = d ? -10000 : Math.floor((Math.random() * 10) + 1);
+            var val = d ? -maxsize : Math.floor((Math.random() * 10) + 1);
             var n = new Node(d - 1, val);
             this.children.push(n);
         }
@@ -61,8 +62,8 @@ function alphabeta(node, depth, alpha, beta, maximizing_player)
         for (var i = 0; i < node.children.length; i++)
         {
             var child = node.children[i];
-            v = max(v, alphabeta(child, depth - 1, alpha, beta, false));
-            alpha = max(alpha, v);
+            v = Math.max(v, alphabeta(child, depth - 1, alpha, beta, false));
+            alpha = Math.max(alpha, v);
             if (beta <= alpha)
             {
                 break;
@@ -77,8 +78,8 @@ function alphabeta(node, depth, alpha, beta, maximizing_player)
         for (var i = 0; i < node.children.length; i++)
         {
             var child = node.children[i];
-            v = min(v, alphabeta(child, depth - 1, alpha, beta, true));
-            beta = min(beta, v);
+            v = Math.min(v, alphabeta(child, depth - 1, alpha, beta, true));
+            beta = Math.min(beta, v);
             if (beta <= alpha)
             {
                 break;
@@ -216,5 +217,7 @@ $(".box").click(function() {
 
     // Test Node init
     var fd = new Node(1);
+    console.log(alphabeta(fd, 5, -maxsize, maxsize, true));
+
     console.log(fd);
 });
