@@ -1,3 +1,24 @@
+/*
+ * The only person pressing squares are human player
+ * For now, human player always starts.
+
+   For each time someone presses a square make a tree of all possible game states.
+ * Make a list over places to put values V.
+
+function create_children(current_board):
+   list_possibilities V =: get_open_squares(current_board)
+   For each of values V:
+      if check_mate = true:
+         if bot_winner = true:
+            node.value = 1000000
+         if huma_winner = true:
+            node.value = -1000000
+         return
+      new_board =: place_value_on_board(V)
+      create_children(new_board)
+
+*/
+
 var current_player = 0;
 var mate = false;
 var maxsize = 100000
@@ -20,12 +41,41 @@ mate_index = [
 ];
 
 
+function get_open_squares() {
+    var open_squares = [];
+    var current_board = get_board();
+
+    for (var i = 0; i < current_board.length; i++ ) {
+        if (current_board[i] == 0)
+            open_squares.push()
+    }
+}
+
+
 class Node {
 
     constructor (d, value) {
         this.value = value;
         this.children = [];
         this.create_children(d);
+    }
+
+    create_children_2(current_board) {
+        index_values = get_open_squares(current_board);
+        check_mate = false;
+
+        for (var i = 0; i < index_values.length; i++) {
+            if (check_mate = true)
+                if (bot_winner = true)
+                    node.value = 1000000
+                if (huma_winner = true)
+                    node.value = -1000000
+                return
+
+            make_move(index_values[i]);
+            new_board = place_value_on_board();
+            create_children(new_board)
+        }
     }
 
     create_children(d) {
