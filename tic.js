@@ -22,7 +22,7 @@ function create_children(current_board):
 var current_player = 0;
 var mate = false;
 var maxsize = 100000
-var max_depth = 3;
+var max_depth = 2;
 var total = 0;
 
 mate_index = [
