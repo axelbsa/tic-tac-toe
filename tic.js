@@ -22,7 +22,7 @@ function create_children(current_board):
 var current_player = 0;
 var mate = false;
 var maxsize = 100000
-var max_depth = 2;
+var max_depth = 8;
 var total = 0;
 
 mate_index = [
@@ -56,11 +56,14 @@ class Board {
         let _map = [];
         for (let i = 0; i < this.x_vals.length; i++) 
         {
-            if ((this.x_vals | this.o_vals) == 0)
+            //console.log(this.x_vals)
+            console.log("open postitions_index: " + (this.x_vals[i] | this.o_vals[i]));
+            if ((this.x_vals[i] | this.o_vals[i]) == 0)
             {
                 _map.push(i);
             }
         }
+        console.log("open postitions: " + _map.length);
         return _map;
     }
 
@@ -113,13 +116,13 @@ class Board {
 
 class Node {
 
-    constructor(current_depth, board) {
+    constructor(current_depth, board, player) {
         this.value = null;
         this.children = [];
-        this.create_children_2(current_depth, board);
+        this.create_children_2(current_depth, board, player);
     }
 
-    create_children_2(current_depth, current_board) {
+    create_children_2(current_depth, current_board, player) {
 
         //console.log(current_board);
 
@@ -136,21 +139,22 @@ class Node {
         let huma_winner = false;
 
         let open_pos = current_board.open_positions();
-        console.log(open_pos);
+        console.log({"position_list": open_pos});
 
         for (var i = 0; i < open_pos.length; i++) {
-            if (check_mate = true)
+            if (current_board.check_for_mate())
+                console.log("WINNER IN MAIN");
                 if (bot_winner = true)
                     this.value = 1000000
-                if (huma_winner = true)
+                if (huma_winner = false)
                     this.value = -1000000
                 //return
 
-            //make_move(index_values[i]); // Just set the value in the array
-            let player = ~current_player%2 ? 'X' : 'O';
-            current_board.set_new_position(player, open_pos[i]);
-            console.log("Making babies: " + current_depth);
-            let n = new Node(current_depth-1, current_board);
+            let cplayer = ~player%2 ? 'X' : 'O';
+            console.log("current_player:" + cplayer + " playernum: " + player);
+            current_board.set_new_position(cplayer, open_pos[i]);
+            console.log(current_board.x_vals);
+            let n = new Node(current_depth-1, current_board, ++player);
             this.children.push(n);
             total += 1
         }
@@ -330,6 +334,8 @@ $(".box").click(function() {
     var cross = '<span class="icon-cross"></span>';
     var circle = '<span class="icon-radio-unchecked"></span>';
 
+    total = 0;
+
     // Checks if square is occupied or game is over
     if (this.children.length > 0 || mate === true)
     {
@@ -352,9 +358,9 @@ $(".box").click(function() {
         $(this).append(circle);
     }
 
-    // Check for mate
-    var board = new Board();
+    let board = new Board();
     board.get_board_from_dom();
+    // Check for mate
     console.log({"Board_class": board});
 
     mate = board.check_for_mate();
@@ -365,7 +371,9 @@ $(".box").click(function() {
     console.log({"move generator" : moves});
     
     for (var i = 0; i < moves.length; i++) { // Generate tree
-        var n = new Node(max_depth, board);
+        let _board = new Board();
+        _board.get_board_from_dom();
+        var n = new Node(max_depth, _board, 1);
         move_tree.push(n);
     }
 
