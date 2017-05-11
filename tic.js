@@ -21,8 +21,8 @@ function create_children(current_board):
 
 var current_player = 0;
 var mate = false;
-var maxsize = 100000
-var max_depth = 8;
+var maxsize = 1000;
+var max_depth = 3;
 var total = 0;
 
 mate_index = [
@@ -40,6 +40,30 @@ mate_index = [
     [0, 4, 8],
     [2, 4, 6]
 ];
+
+$( document ).ready(function() {
+    var myVar = setInterval(handle_ai_turn, 1000);
+    console.log("Loading document, and setting up timers");
+});
+
+
+function handle_ai_turn() {
+    var circle = '<span class="icon-radio-unchecked"></span>';
+    if (~current_player % 2 || mate === true)
+    {
+        // Exit early if not O's turn
+        return;
+    }
+
+    let board = move_generator();
+    let random_position = Math.floor(Math.random() * board.length);
+    console.log(random_position);
+    let id='#'+board[random_position];
+    $(id).append(circle);
+    console.log("It's my turn \o/");
+    current_player++;
+}
+
 
 class Board {
 
@@ -362,13 +386,14 @@ $(".box").click(function() {
     board.get_board_from_dom();
     // Check for mate
     console.log({"Board_class": board});
+    //console.log({"Board_class": board});
 
     mate = board.check_for_mate();
-    console.log({"current_board" : get_board()});
+    //console.log({"current_board" : get_board()});
     
     var move_tree = [];
     moves = move_generator();
-    console.log({"move generator" : moves});
+    //console.log({"move generator" : moves});
     
     for (var i = 0; i < moves.length; i++) { // Generate tree
         let _board = new Board();
@@ -376,6 +401,10 @@ $(".box").click(function() {
         var n = new Node(max_depth, _board, 1);
         move_tree.push(n);
     }
+    //for (var i = 0; i < moves.length; i++) { // Generate tree
+        //var n = new Node(max_depth, board);
+        //move_tree.push(n);
+    //}
 
     console.log(total);
 
